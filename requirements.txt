@@ -1,0 +1,20 @@
+# utilities 
+numpy
+pandas  #for tabular dataFrames
+scikit-learn #for SVM in classification of faces recognition
+# dlib # to detect face (rectangle comes on Face) But doesn't have whl
+dlib-bin 
+# dlib-20.0.99-cp313-cp313-win_amd64.whl  # If above also doesnt work use the pasckage specific to version in ur system
+
+#GitHub packages
+git+https://github.com/ageitgey/face_recognition_models
+setuptools<70.0.0
+
+# for Database
+supabase
+bcrypt # use for hashing password
+
+segno # for QR Code Genaration for url
+pillow # help in many images preprocessing methods
+
+streamlit # frontend library 
