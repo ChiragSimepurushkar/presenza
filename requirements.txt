@@ -18,3 +18,7 @@ segno # for QR Code Genaration for url
 pillow # help in many images preprocessing methods
 
 streamlit # frontend library 
+
+
+librosa
+resemblyzer
