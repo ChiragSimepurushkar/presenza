@@ -19,8 +19,8 @@ from src.components.dialog_voice_attendance import voice_attendance_dialog
 
 
 def teacher_screen():
-    style_background_dashboard()
     style_base_layout()
+    style_background_dashboard()
 
     if "teacher_data" in st.session_state:
         teacher_dashboard()

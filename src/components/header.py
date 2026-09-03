@@ -64,7 +64,7 @@ def header_dashboard():
     
     st.markdown(f"""
         <div style="display:flex; align-items:center; justify-content:flex-start; gap:14px;">
-            <img src='{logo_url}' style='height:50px; border-radius: 12px; box-shadow: 0 2px 12px rgba(124, 58, 237, 0.15);' />
+            <img src='{logo_url}' style='height:80px; border-radius: 12px; box-shadow: 0 2px 12px rgba(124, 58, 237, 0.15);' />
             <div>
                 <h2 style='
                     text-align:left; 

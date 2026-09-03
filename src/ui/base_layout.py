@@ -92,9 +92,17 @@ def style_background_dashboard():
 
 def style_base_layout():
     st.markdown("""
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&display=swap');
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+            @font-face {
+                font-family: 'Climate Crisis';
+                font-style: normal;
+                font-weight: 400;
+                font-display: swap;
+                src: url('https://fonts.gstatic.com/s/climatecrisis/v15/wEOpEB3AntNeKCPBVW9XOKlmp3AUgWFN1DvIvcM0gFp6jQ.ttf') format('truetype');
+            }
 
             /* Hide Streamlit top bar */
             #MainMenu, footer, header {
@@ -106,45 +114,83 @@ def style_base_layout():
             }
 
             /* ===== TYPOGRAPHY ===== */
-            h1, .stMarkdown h1 {
+            /* Force Climate Crisis font on all headings, st.header, st.subheader, and their text children */
+            h1, h2, h3, h4, h5, h6,
+            h1 *, h2 *, h3 *, h4 *, h5 *, h6 *,
+            [data-testid*="stHeading"] h1, [data-testid*="stHeading"] h2, [data-testid*="stHeading"] h3,
+            [data-testid*="stHeading"] h1 *, [data-testid*="stHeading"] h2 *, [data-testid*="stHeading"] h3 *,
+            [data-testid*="stHeadingWithActionElements"] h1, [data-testid*="stHeadingWithActionElements"] h2, [data-testid*="stHeadingWithActionElements"] h3,
+            [data-testid*="stHeadingWithActionElements"] h1 *, [data-testid*="stHeadingWithActionElements"] h2 *, [data-testid*="stHeadingWithActionElements"] h3 *,
+            .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, 
+            .stMarkdown h4, .stMarkdown h5, .stMarkdown h6,
+            .stMarkdown h1 *, .stMarkdown h2 *, .stMarkdown h3 *,
+            div[data-testid="stMarkdownContainer"] h1,
+            div[data-testid="stMarkdownContainer"] h2,
+            div[data-testid="stMarkdownContainer"] h3,
+            div[data-testid="stMarkdownContainer"] h1 *,
+            div[data-testid="stMarkdownContainer"] h2 *,
+            div[data-testid="stMarkdownContainer"] h3 * {
                 font-family: 'Climate Crisis', cursive !important;
-                font-size: 2.6rem !important;
                 font-weight: 400 !important;
-                line-height: 1.2 !important;
-                margin-bottom: 0.5rem !important;
-                color: #1e293b !important;
                 letter-spacing: -0.01em !important;
+                line-height: 1.25 !important;
             }
 
-            h2, .stMarkdown h2 {
-                font-family: 'Climate Crisis', cursive !important;
+            /* Size formatting for headings */
+            h1, [data-testid*="stHeading"] h1, div[data-testid="stMarkdownContainer"] h1 {
+                font-size: 2.2rem !important;
+                color: #1e293b !important;
+                margin-bottom: 0.5rem !important;
+            }
+
+            /* st.header() target with proper scaled size */
+            h2, [data-testid*="stHeading"] h2, div[data-testid="stMarkdownContainer"] h2 {
                 font-size: 1.5rem !important;
-                font-weight: 400 !important;
-                line-height: 1.3 !important;
+                color: #1e293b !important;
+                margin-bottom: 0.4rem !important;
+            }
+
+            /* st.subheader() target */
+            h3, [data-testid*="stHeading"] h3, div[data-testid="stMarkdownContainer"] h3 {
+                font-size: 1.2rem !important;
+                color: #334155 !important;
                 margin-bottom: 0.3rem !important;
+            }
+
+            h4, div[data-testid="stMarkdownContainer"] h4 {
+                font-size: 1.05rem !important;
                 color: #334155 !important;
             }
 
-            h3, .stMarkdown h3 {
-                font-family: 'Climate Crisis', cursive !important;
-                font-weight: 400 !important;
-                font-size: 1.2rem !important;
-                color: #1e293b !important;
+            h5, div[data-testid="stMarkdownContainer"] h5 {
+                font-size: 0.95rem !important;
+                color: #475569 !important;
             }
 
-            h4, p, span, label, li, a, button, input, 
-            .stMarkdown p, .stMarkdown span, .stButton p, .stButton span, 
+            h6, div[data-testid="stMarkdownContainer"] h6 {
+                font-size: 0.85rem !important;
+                color: #475569 !important;
+            }
+
+            /* Body elements use clean Inter font, without touching heading children */
+            body, .stApp, 
+            p, label, li, input,
+            div[data-testid="stMarkdownContainer"] > p,
             div[data-testid="stWidgetLabel"] p {
                 font-family: 'Inter', sans-serif !important;
             }
             
             /* Body text color */
-            p, span, label, li, .stMarkdown p {
+            p, label, li, div[data-testid="stMarkdownContainer"] > p {
                 color: #475569;
             }
 
-            /* Ensure text inside buttons ar always inherited from the button itself */
-            .stButton p, .stButton span {
+            /* Buttons: Inter font and correct text color */
+            .stButton > button {
+                font-family: 'Inter', sans-serif !important;
+            }
+            .stButton > button * {
+                font-family: 'Inter', sans-serif !important;
                 color: inherit !important;
             }
 

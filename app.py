@@ -4,13 +4,16 @@ from src.screens.student_screen import student_screen
 from src.screens.teacher_screen import teacher_screen
 
 from src.components.dialog_auto_enroll import auto_enroll_dialog
+from src.ui.base_layout import style_base_layout
 
 def main():
     st.set_page_config(
-    page_title="PRESENZA — AI-Powered Face & Voice Attendance",
-    page_icon="assets/logo_icon.jpg"
-      )
-#at start :- session_state is empty disctionary {}
+        page_title="PRESENZA — AI-Powered Face & Voice Attendance",
+        page_icon="assets/logo_icon.jpg"
+    )
+    style_base_layout()
+
+    # at start :- session_state is empty dictionary {}
     if 'login_type' not in st.session_state:   # check if it doesn't exist or else will give issue
           st.session_state['login_type'] = None  #initialize it
 

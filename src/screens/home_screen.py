@@ -3,12 +3,9 @@ from src.components.header import header_home
 from src.components.footer import footer_home
 from src.ui.base_layout import style_base_layout, style_background_home
 def home_screen():
-
-
-    header_home()
-    style_background_home()
     style_base_layout()
-
+    style_background_home()
+    header_home()
 
     col1, col2 = st.columns(2, gap="large")
 
@@ -18,7 +15,7 @@ def home_screen():
                 <div style="margin-bottom: 10px;">
                     <span style="font-size: 2.5rem;">🎓</span>
                 </div>
-                <h2 style="text-align: center; margin-bottom: 8px;">I'm a Student</h2>
+                <h2 style="text-align: center; margin-bottom: 8px; font-family: 'Climate Crisis', cursive;">I'm a Student</h2>
                 <p style="color: #64748b; font-family: 'Inter', sans-serif; font-size: 0.9rem; text-align:center; margin-bottom: 24px; padding: 0 10px;">
                     Login with your face, view attendance & enroll in courses
                 </p>
@@ -35,7 +32,7 @@ def home_screen():
                 <div style="margin-bottom: 10px;">
                     <span style="font-size: 2.5rem;">👨‍🏫</span>
                 </div>
-                <h2 style="text-align: center; margin-bottom: 8px;">I'm a Teacher</h2>
+                <h2 style="text-align: center; margin-bottom: 8px; font-family: 'Climate Crisis', cursive;">I'm a Teacher</h2>
                 <p style="color: #64748b; font-family: 'Inter', sans-serif; font-size: 0.9rem; text-align:center; margin-bottom: 24px; padding: 0 10px;">
                     Take AI attendance, manage subjects & track records
                 </p>
