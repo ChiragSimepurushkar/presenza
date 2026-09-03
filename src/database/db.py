@@ -63,6 +63,19 @@ def unenroll_student_to_subject(student_id, subject_id):
     response = supabase.table("subject_students").delete().eq("student_id", student_id).eq("subject_id", subject_id).execute()
     return response.data
 
+def delete_subject(subject_id):
+    """Deletes a subject and cleans up dependent attendance and enrollment records."""
+    try:
+        supabase.table("attendance_logs").delete().eq("subject_id", subject_id).execute()
+    except Exception:
+        pass
+    try:
+        supabase.table("subject_students").delete().eq("subject_id", subject_id).execute()
+    except Exception:
+        pass
+    response = supabase.table("subjects").delete().eq("subject_id", subject_id).execute()
+    return response.data
+
 def get_student_subjects(student_id):
     response = supabase.table("subject_students").select("*, subjects(*)").eq("student_id", student_id).execute()
     return response.data

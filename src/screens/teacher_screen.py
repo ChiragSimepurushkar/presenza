@@ -7,6 +7,7 @@ from src.database.db import check_teacher_exists, create_teacher,teacher_login, 
 from src.components.dialog_create_subject import create_subject_dialog
 from src.components.subject_card import subject_card
 from src.components.dialog_share_subject import share_subject_dialog
+from src.components.dialog_delete_subject import delete_subject_dialog
 from src.components.dialog_add_photo import add_photos_dialog
 
 from src.pipelines.face_pipeline import predict_attendance
@@ -181,23 +182,36 @@ def teacher_tab_manage_subjects():
     # LIST ALL Subjects
     subjects = get_teacher_subjects(teacher_id)
     if subjects:
-        for sub in subjects:
+        cols = st.columns(2)
+        for i, sub in enumerate(subjects):
             stats = [
                 ("👥", "Students", sub['total_students']),
                 ("📚", "Classes", sub['total_classes'])
             ]
 
-            def share_btn():
-                if st.button(f"🔗 Share Code: {sub['name']}", key=f"share_{sub['subject_code']}"):
-                    share_subject_dialog(sub['name'], sub['subject_code'])
+            s_name = sub['name']
+            s_code = sub['subject_code']
+            s_id = sub['subject_id']
 
-            subject_card(
-                name=sub['name'],
-                code=sub['subject_code'],
-                section=sub['section'],
-                stats=stats,
-                footer_callback=share_btn
-            )
+            def make_footer(name=s_name, code=s_code, sid=s_id):
+                def footer():
+                    fcol1, fcol2 = st.columns(2)
+                    with fcol1:
+                        if st.button("🔗 Share Code", key=f"share_{sid}", width="stretch", type="secondary"):
+                            share_subject_dialog(name, code)
+                    with fcol2:
+                        if st.button("🗑️ Remove", key=f"del_{sid}", width="stretch", type="tertiary"):
+                            delete_subject_dialog(name, sid)
+                return footer
+
+            with cols[i % 2]:
+                subject_card(
+                    name=sub['name'],
+                    code=sub['subject_code'],
+                    section=sub['section'],
+                    stats=stats,
+                    footer_callback=make_footer(s_name, s_code, s_id)
+                )
 
     else:
         st.info("NO SUBJECTS FOUND. CREATE ONE ABOVE")
