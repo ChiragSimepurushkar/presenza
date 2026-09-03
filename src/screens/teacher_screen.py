@@ -87,17 +87,23 @@ def teacher_tab_take_attendance():
     subjects = get_teacher_subjects(teacher_id)
 
     if not subjects:
-        st.warning("You haven't created any subjects yet! Please create one to begin!")
+        st.info("👋 You haven't created any subjects yet. Please create a subject first to take attendance!")
+        if st.button("➕ Create New Subject", type="primary"):
+            create_subject_dialog(teacher_id)
+        return
 
     subject_options = {f"{s['name']} - {s['subject_code']}": s['subject_id'] for s in subjects}
 
-    col1, col2 = st.columns([3,1], vertical_alignment='bottom')
+    col1, col2 = st.columns([3, 1], vertical_alignment='bottom')
     with col1:
         selected_subject_label = st.selectbox('Select Subject', options=list(subject_options.keys()))
 
     with col2:
         if st.button("📷 Add Photos", type='primary', width="stretch"):
             add_photos_dialog()
+
+    if not selected_subject_label or selected_subject_label not in subject_options:
+        return
 
     selected_subject_id = subject_options[selected_subject_label]
     st.divider()
@@ -223,6 +229,7 @@ def teacher_tab_attendance_records():
     records = get_attendance_for_teacher(teacher_id)
 
     if not records:
+        st.info("No attendance records found yet.")
         return
 
     data = []
