@@ -7,8 +7,8 @@ from src.components.dialog_auto_enroll import auto_enroll_dialog
 
 def main():
     st.set_page_config(
-    page_title="SnapClass - Making Attendance faster using AI",
-    page_icon="https://i.ibb.co/YTYGn5qV/logo.png"
+    page_title="PRESENZA — AI-Powered Face & Voice Attendance",
+    page_icon="assets/logo_icon.jpg"
       )
 #at start :- session_state is empty disctionary {}
     if 'login_type' not in st.session_state:   # check if it doesn't exist or else will give issue

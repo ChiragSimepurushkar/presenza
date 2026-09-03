@@ -34,7 +34,7 @@ def student_dashboard():
     with c1:
         st.header("Your Enrolled Subjects")
     with c2:
-        if st.button("Enroll in Subject", type="primary", width="stretch"):
+        if st.button("📚 Enroll in Subject", type="primary", width="stretch"):
             enroll_dialog()
 
     st.divider()
@@ -60,7 +60,7 @@ def student_dashboard():
         stats = stats_map.get(sid, {"total": 0, "attended": 0})
 
         def unenroll_button():
-            if st.button("Unenroll from this course", type="tertiary", width="stretch", icon=":material/delete_forever:"):
+            if st.button("🚫 Unenroll from this course", type="tertiary", width="stretch"):
                 unenroll_student_to_subject(student_id, sid)
                 st.success(f"Unenrolled from {sub['name']} successfully!")
                 st.rerun()
@@ -93,7 +93,7 @@ def student_screen():
     with c1:
         header_dashboard()
     with c2:
-        if st.button("Go back to Home", type='secondary', key='loginbackbtn', shortcut="control+backspace"):
+        if st.button("⬅️ Go back to Home", type='secondary', key='loginbackbtn', shortcut="control+backspace"):
             st.session_state['login_type'] = None
             st.rerun()
     st.header('Login using FaceID', text_alignment='center')
@@ -134,16 +134,16 @@ def student_screen():
             st.header('Register new Profile')
             new_name = st.text_input("Enter your name", placeholder="E.g Raj Naik")
 
-            st.subheader("Optinal: Voice Enrollment")
-            st.info("Entroll your for voice only attendance")   
+            st.subheader("Optional: Voice Enrollment")
+            st.info("Enroll your voice for voice-only attendance")   
 
             audio_data = None
             try:
-                audio_data = st.audio_input("Record s short phrase like I am present, My name is Raj.")  
+                audio_data = st.audio_input("Record a short phrase like 'I am present, My name is Raj.'")  
             except Exception:
                 st.error("Audio Data failed!")       
 
-            if st.button('Create Account', type='primary'):
+            if st.button('✅ Create Account', type='primary'):
                 if new_name:
                     with st.spinner('Creating profile...'):
                         img = np.array(Image.open(photo_source))
