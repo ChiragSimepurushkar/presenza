@@ -4,7 +4,7 @@ import io
 import librosa
 import streamlit as st
 
-@st.ceche_resource
+@st.cache_resource
 def load_voice_encoder():
     return VoiceEncoder()
 
@@ -58,7 +58,7 @@ def process_bulk_audio(audio_bytes, candidates_dict, threshold=0.65): #when teac
             sid, score = identify_speaker(embedding, candidates_dict, threshold)
 
             if sid:
-                if sid not in identify_speaker or score > identified_results[sid]:
+                if sid not in identified_results or score > identified_results[sid]:
                     identified_results[sid] = score
 
         return identified_results
