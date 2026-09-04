@@ -10,3 +10,4 @@ venv/
 .streamlit/
 
 dist/
+FUTURE_IMPROVEMENTS.md

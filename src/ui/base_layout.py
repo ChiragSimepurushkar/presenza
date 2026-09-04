@@ -7,52 +7,112 @@ def style_background_home():
     st.markdown("""
         <style>
                 .stApp {
-                    background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 40%, #e8f4ff 70%, #f8f9ff 100%) !important;
+                    background: linear-gradient(135deg, #f8f9ff 0%, #ede9fe 25%, #e0f2fe 50%, #f0f2ff 75%, #f8f9ff 100%) !important;
+                    background-size: 400% 400% !important;
+                    animation: homeBgShift 15s ease infinite !important;
                     min-height: 100vh;
                     position: relative;
                     overflow: hidden;
                 }
 
-                /* Animated floating orbs - soft light version */
+                @keyframes homeBgShift {
+                    0% { background-position: 0% 50%; }
+                    25% { background-position: 50% 0%; }
+                    50% { background-position: 100% 50%; }
+                    75% { background-position: 50% 100%; }
+                    100% { background-position: 0% 50%; }
+                }
+
+                /* Animated floating orbs — multi-layer with depth */
                 .stApp::before {
                     content: '';
                     position: fixed;
-                    top: -50%;
-                    left: -50%;
-                    width: 200%;
-                    height: 200%;
-                    background: radial-gradient(circle 400px at 20% 30%, rgba(124, 58, 237, 0.05) 0%, transparent 100%),
-                                radial-gradient(circle 300px at 80% 70%, rgba(6, 182, 212, 0.04) 0%, transparent 100%),
-                                radial-gradient(circle 250px at 50% 50%, rgba(139, 92, 246, 0.03) 0%, transparent 100%);
-                    animation: floatOrbs 20s ease-in-out infinite;
+                    top: -60%;
+                    left: -60%;
+                    width: 220%;
+                    height: 220%;
+                    background:
+                        radial-gradient(circle 500px at 15% 25%, rgba(124, 58, 237, 0.08) 0%, transparent 70%),
+                        radial-gradient(circle 400px at 85% 15%, rgba(6, 182, 212, 0.07) 0%, transparent 70%),
+                        radial-gradient(circle 350px at 50% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 70%),
+                        radial-gradient(circle 280px at 75% 55%, rgba(124, 58, 237, 0.05) 0%, transparent 70%),
+                        radial-gradient(circle 220px at 25% 65%, rgba(6, 182, 212, 0.05) 0%, transparent 70%);
+                    animation: floatOrbs 25s ease-in-out infinite;
+                    pointer-events: none;
+                    z-index: 0;
+                }
+
+                /* Second layer of smaller, faster orbs for parallax depth */
+                .stApp::after {
+                    content: '';
+                    position: fixed;
+                    top: -30%;
+                    left: -30%;
+                    width: 160%;
+                    height: 160%;
+                    background:
+                        radial-gradient(circle 180px at 30% 20%, rgba(124, 58, 237, 0.04) 0%, transparent 70%),
+                        radial-gradient(circle 150px at 70% 40%, rgba(6, 182, 212, 0.035) 0%, transparent 70%),
+                        radial-gradient(circle 120px at 45% 70%, rgba(168, 85, 247, 0.03) 0%, transparent 70%);
+                    animation: floatOrbsFast 12s ease-in-out infinite reverse;
                     pointer-events: none;
                     z-index: 0;
                 }
 
                 @keyframes floatOrbs {
                     0%, 100% { transform: translate(0, 0) rotate(0deg); }
-                    25% { transform: translate(2%, -3%) rotate(5deg); }
-                    50% { transform: translate(-1%, 2%) rotate(-3deg); }
-                    75% { transform: translate(3%, 1%) rotate(2deg); }
+                    20% { transform: translate(3%, -2%) rotate(3deg); }
+                    40% { transform: translate(-2%, 3%) rotate(-2deg); }
+                    60% { transform: translate(2%, -1%) rotate(4deg); }
+                    80% { transform: translate(-1%, 2%) rotate(-3deg); }
                 }
 
+                @keyframes floatOrbsFast {
+                    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+                    33% { transform: translate(-3%, 2%) rotate(-4deg); }
+                    66% { transform: translate(2%, -3%) rotate(3deg); }
+                }
+
+                /* Glassmorphism cards with premium feel */
                 .stApp div[data-testid="stColumn"]{
-                    background: rgba(255, 255, 255, 0.85) !important;
-                    backdrop-filter: blur(20px) !important;
-                    -webkit-backdrop-filter: blur(20px) !important;
+                    background: rgba(255, 255, 255, 0.82) !important;
+                    backdrop-filter: blur(24px) saturate(1.8) !important;
+                    -webkit-backdrop-filter: blur(24px) saturate(1.8) !important;
                     padding: 2.5rem !important;
                     border-radius: 2rem !important;
-                    border: 1px solid rgba(124, 58, 237, 0.1) !important;
-                    box-shadow: 0 8px 32px rgba(124, 58, 237, 0.06),
-                                0 1px 3px rgba(0, 0, 0, 0.04) !important;
+                    border: 1px solid rgba(124, 58, 237, 0.08) !important;
+                    box-shadow:
+                        0 8px 32px rgba(124, 58, 237, 0.06),
+                        0 1px 3px rgba(0, 0, 0, 0.03),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
                     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                /* Shimmer highlight on card top edge */
+                .stApp div[data-testid="stColumn"]::before {
+                    content: '';
+                    position: absolute;
+                    top: 0; left: -100%;
+                    width: 100%; height: 2px;
+                    background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.3), rgba(6, 182, 212, 0.3), transparent);
+                    animation: cardShimmer 6s ease-in-out infinite;
+                }
+
+                @keyframes cardShimmer {
+                    0% { left: -100%; }
+                    50% { left: 100%; }
+                    100% { left: 100%; }
                 }
 
                 .stApp div[data-testid="stColumn"]:hover {
                     border-color: rgba(124, 58, 237, 0.2) !important;
-                    box-shadow: 0 12px 40px rgba(124, 58, 237, 0.1),
-                                0 4px 12px rgba(0, 0, 0, 0.05) !important;
-                    transform: translateY(-2px);
+                    box-shadow:
+                        0 16px 48px rgba(124, 58, 237, 0.12),
+                        0 4px 16px rgba(0, 0, 0, 0.05),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.7) !important;
+                    transform: translateY(-4px);
                 }
         </style>  
                 """,
